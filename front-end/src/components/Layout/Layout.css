@@ -1,0 +1,9 @@
+.layoutContainer {
+  width: calc(100% - 100px);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  margin: 0;
+}
