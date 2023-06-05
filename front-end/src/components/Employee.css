@@ -1,3 +1,16 @@
+/* errors */
+ul li {
+  width: 100%;
+  color: red;
+  text-align: center;
+  list-style-type: none;
+}
+
+/* table */
+table {
+  margin: 1rem 0;
+}
+
 table.bordered-table th,
 td {
   border: 1px solid silver;
@@ -10,4 +23,23 @@ table.bordered-table {
 
 table td {
   text-align: center;
+}
+
+/* create */
+input,
+select {
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+button {
+  width: 100%;
+  padding: 0.5rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.from-group {
+  display: grid;
+  grid-template-columns: 25% 1fr;
+  margin: 0.5rem auto;
 }

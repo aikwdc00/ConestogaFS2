@@ -5,7 +5,7 @@ export default function Input(props) {
   const { label, input, } = props
 
   return (
-    <div className={''}>
+    <div className={`from-group`}>
       <label htmlFor={input.id}>{label}</label >
       <input
         id={input.id}

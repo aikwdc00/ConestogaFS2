@@ -4,7 +4,7 @@ export default function Select(props) {
   const { input, label } = props
 
   return (
-    <div className={''}>
+    <div className={`from-group`}>
       <label htmlFor={input.id}>{label}</label >
       <select name={input.id} id={input.id}>
         {
