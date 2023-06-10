@@ -101,6 +101,14 @@ export default class EmployeeCreate extends Component {
         Department: Department.value,
         employeeType: employeeType.value,
       })
+
+      form.FirstName.value = ''
+      form.LastName.value = ''
+      form.Age.value = ''
+      form.DateOfJoining.value = ''
+      form.Title.value = 'Please choose a title'
+      form.Department.value = 'Please choose Department'
+      form.employeeType.value = 'Please choose employee Type'
     }
   }
 

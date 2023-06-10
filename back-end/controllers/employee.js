@@ -1,12 +1,19 @@
-const Employee = require('../models/employee')
-const { employeeData, addEmployeeData } = require('../data')
+// const Employee = require('../models/employee')
+import { employeeData, addEmployeeData } from '../data/index.js'
 
-exports.getEmployeeData = async (req, res, next) => {
+const getEmployeeData = async (req, res, next) => {
   res.json(employeeData)
 }
 
-exports.postEmployeeData = async (req, res, next) => {
+const postEmployeeData = async (req, res, next) => {
 
   await addEmployeeData(req.body)
   res.json(employeeData)
 }
+
+const employeeController = {
+  getEmployeeData,
+  postEmployeeData
+}
+
+export default employeeController

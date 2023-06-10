@@ -1,4 +1,4 @@
-const employeeData = [
+export const employeeData = [
   {
     FirstName: 'Demo',
     LastName: 'Demo',
@@ -13,7 +13,7 @@ const employeeData = [
     FirstName: 'Demo2',
     LastName: 'Demo2',
     Age: 20,
-    DateOfJoining: 'Jan-1-2000',
+    DateOfJoining: 'MAY-1-2023',
     Title: 'Manager',
     Department: 'IT',
     employeeType: 'fulltime',
@@ -21,16 +21,10 @@ const employeeData = [
   }
 ]
 
-const addEmployeeData = (data) => {
+export const addEmployeeData = (data) => {
 
   const newEmployee = {
     ...data,
-    currentStatus: 1
   }
   employeeData.push(newEmployee)
-}
-
-module.exports = {
-  employeeData,
-  addEmployeeData
 }

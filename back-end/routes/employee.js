@@ -1,10 +1,11 @@
-const express = require('express');
+import express from 'express';
+import ep from '../controllers/employee.js'
+
+
 const router = express.Router();
-const employeeController = require('../controllers/employee')
 
-router.get('/getEmployeeData', employeeController.getEmployeeData)
+router.get('/getEmployeeData', ep.getEmployeeData)
 
-router.post('/postEmployeeData', employeeController.postEmployeeData)
+router.post('/postEmployeeData', ep.postEmployeeData)
 
-
-module.exports = router;
+export default router

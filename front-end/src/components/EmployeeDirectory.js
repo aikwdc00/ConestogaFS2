@@ -6,29 +6,6 @@ import EmployeeTable from './EmployeeTable'
 
 import './Employee.css'
 
-// const employeeData = [
-//   {
-//     FirstName: 'Demo',
-//     LastName: 'Demo',
-//     Age: 20,
-//     DateOfJoining: 'Jan-1-2000',
-//     Title: 'Manager',
-//     Department: 'IT',
-//     employeeType: 'fulltime',
-//     currentStatus: 1
-//   },
-//   {
-//     FirstName: 'Demo2',
-//     LastName: 'Demo2',
-//     Age: 20,
-//     DateOfJoining: 'Jan-1-2000',
-//     Title: 'Manager',
-//     Department: 'IT',
-//     employeeType: 'fulltime',
-//     currentStatus: 2
-//   }
-// ]
-
 export default class EmployeeDirectory extends Component {
   constructor() {
     super()
@@ -42,33 +19,91 @@ export default class EmployeeDirectory extends Component {
   }
 
   getEmployeeData = () => {
-    fetch('/employee/getEmployeeData')
+    // fetch('/ep/getEmployeeData')
+    //   .then((res) => res.json())
+    //   .then((data) => this.setState({ employeeData: data }))
+    //   .catch(err => console.log('getEmployeeData err', err))
+
+    fetch('/graphql', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        query: `query ExampleQuery {
+          employeeList {
+            FirstName
+            LastName
+            Title
+            currentStatus
+            employeeType
+            Department
+            DateOfJoining
+            Age
+          }
+        }`
+      })
+    })
       .then((res) => res.json())
-      .then((data) => this.setState({ employeeData: data }))
+      .then((result) => this.setState({ employeeData: result.data.employeeList }))
       .catch(err => console.log('getEmployeeData err', err))
   }
 
   addEmployeeHandler = (e) => {
+    const graphqlQuery = {
+      query: `mutation EmployeeAdd($employee: EmployeeInput) {
+            employeeAdd(employee: $employee) {
+              Age
+              FirstName
+              LastName
+              DateOfJoining
+              Department
+              Title
+              currentStatus
+              employeeType
+            }
+          }`,
+      variables: {
+        employee: {
+          ...e,
+          Age: parseInt(e.Age)
+        }
+      }
+    };
 
-    const configure = {
-      method: "POST",
+    // const configure = {
+    //   method: "POST",
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(e)
+    // }
+    // fetch('/ep/postEmployeeData', configure)
+    //   .then((res) => res.json())
+    //   .then((employeeData) => this.setState({ employeeData }))
+    //   .catch(err => console.log('getEmployeeData err', err))
+
+    fetch("/graphql", {
+      method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'content-type': 'application/json',
       },
-      body: JSON.stringify(e)
-    }
+      body: JSON.stringify(graphqlQuery)
+    })
+      .then(res => res.json())
+      .then(result => {
 
-    fetch('/employee/postEmployeeData', configure)
-      .then((res) => res.json())
-      .then((employeeData) => this.setState({ employeeData }))
-      .catch(err => console.log('getEmployeeData err', err))
+        if (result.errors) {
+          throw new Error(result.errors[0].message)
+        }
 
-    // this.setState(prevSate => ({
-    //   employeeData: [
-    //     ...prevSate.employeeData,
-    //     { ...e, currentStatus: prevSate.employeeData.length + 1 }
-    //   ]
-    // }))
+        this.setState((prevState) => ({
+          employeeData: [...prevState.employeeData, result.data.employeeAdd]
+        }))
+      }).catch((err) => {
+        this.setState({ errors: err })
+      });
+
   }
 
   render() {

@@ -1,0 +1,32 @@
+scalar DateHandler
+
+type Employee {
+  # _id: ID!
+  # createdAt: String!
+  FirstName: String
+  LastName: String
+  DateOfJoining: DateHandler
+  Age: Int
+  Title: String
+  Department: String
+  employeeType: String
+  currentStatus: Int
+}
+
+input EmployeeInput {
+  FirstName: String
+  LastName: String
+  DateOfJoining: DateHandler
+  Age: Int
+  Title: String
+  Department: String
+  employeeType: String
+}
+
+type Query {
+  employeeList: [Employee]
+}
+
+type Mutation {
+  employeeAdd(employee: EmployeeInput): Employee
+}

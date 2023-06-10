@@ -1,4 +1,4 @@
-require('dotenv').config()
-const mongoose = require('mongoose');
+import 'dotenv/config'
+import mongoose from 'mongoose';
 
-module.exports = mongoose.connect(process.env.MONGODB_URI)
+export default mongoose.connect(process.env.MONGODB_URI)
