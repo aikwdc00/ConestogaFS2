@@ -6,6 +6,9 @@ ul li {
   list-style-type: none;
 }
 
+.noFound {
+  text-align: center;
+}
 /* table */
 table {
   margin: 1rem 0;

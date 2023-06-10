@@ -1,5 +1,6 @@
 import { GraphQLScalarType, GraphQLError } from 'graphql'
 import { employeeData, addEmployeeData } from '../data/index.js'
+import Employee from '../models/employee.js'
 
 const GraphQlDateResolver = new GraphQLScalarType({
   name: 'DateHandle',
@@ -15,11 +16,24 @@ const GraphQlDateResolver = new GraphQLScalarType({
 
 const resolvers = {
   Query: {
-    employeeList: () => employeeData,
+    employeeList: async () => {
+      const list = await Employee.find()
+
+      if (!list) {
+        throw new GraphQLError('No Employee found', {
+          extensions: {
+            code: 422,
+          },
+        });
+      }
+
+      console.log('list', list)
+      return list
+    },
   },
   DateHandler: GraphQlDateResolver,
   Mutation: {
-    employeeAdd: (_root, { employee }) => {
+    employeeAdd: async (_root, { employee }) => {
       if (!employee) {
         throw new GraphQLError('Invalid argument value', {
           extensions: {
@@ -28,9 +42,9 @@ const resolvers = {
         });
       }
 
-      employee.currentStatus = 1
-      addEmployeeData(employee)
-      return employee;
+      const newEmployee = new Employee({ ...employee, })
+      const createEp = await newEmployee.save()
+      return { ...createEp._doc, _id: createEp._id.toString() }
     }
   }
 };

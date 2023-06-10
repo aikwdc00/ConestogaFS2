@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const employeeSchema = new Schema({
@@ -18,18 +18,26 @@ const employeeSchema = new Schema({
     type: String,
     required: true
   },
+  Title: {
+    type: String,
+    enum: ['Employee', 'Manager', 'Director', 'VP'],
+    required: true
+  },
   Department: {
     type: String,
+    options: ['IT', 'Marketing', 'HR', 'Engineering'],
     required: true
   },
   employeeType: {
     type: String,
+    enum: ['FullTime', 'PartTime', 'Contract', 'Seasonal'],
     required: true
   },
   currentStatus: {
-    type: String,
+    type: Number,
+    default: 1,
     required: true
   },
 });
 
-module.exports = mongoose.model('Employee', employeeSchema);
+export default mongoose.model('Employee', employeeSchema);
