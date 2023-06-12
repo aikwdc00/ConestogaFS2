@@ -33,7 +33,7 @@ const resolvers = {
   },
   DateHandler: GraphQlDateResolver,
   Mutation: {
-    employeeAdd: async (_root, { employee }) => {
+    employeeCreate: async (_root, { employee }) => {
       if (!employee) {
         throw new GraphQLError('Invalid argument value', {
           extensions: {

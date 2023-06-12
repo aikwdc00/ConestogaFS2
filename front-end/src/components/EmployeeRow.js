@@ -2,6 +2,7 @@ import React from 'react'
 
 function EmployeeRow(props) {
 
+  if (!props.employee) return
   const { FirstName, LastName, Age, DateOfJoining, Title, Department, employeeType, currentStatus } = props.employee
 
   const newDate = new Date(DateOfJoining).toDateString()

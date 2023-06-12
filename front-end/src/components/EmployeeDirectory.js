@@ -52,7 +52,7 @@ export default class EmployeeDirectory extends Component {
   addEmployeeHandler = (e) => {
     const graphqlQuery = {
       query: `mutation EmployeeAdd($employee: EmployeeInput) {
-            employeeAdd(employee: $employee) {
+            employeeCreate(employee: $employee) {
               Age
               FirstName
               LastName
@@ -98,7 +98,7 @@ export default class EmployeeDirectory extends Component {
         }
 
         this.setState((prevState) => ({
-          employeeData: [...prevState.employeeData, result.data.employeeAdd]
+          employeeData: [...prevState.employeeData, result.data.employeeCreate]
         }))
       }).catch((err) => {
         this.setState({ errors: err })

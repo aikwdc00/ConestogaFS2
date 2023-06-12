@@ -4,7 +4,7 @@ import EmployeeRow from './EmployeeRow'
 function EmployeeTable(props) {
   const { employeeData } = props
 
-  if (!Array.isArray(employeeData) || !employeeData.length) return <p class="noFound">No employees found</p>
+  if (!Array.isArray(employeeData) || !employeeData.length) return <p className="noFound">No employees found</p>
 
   const renderEmployee = employeeData.map((employee, index) => <EmployeeRow employee={employee} key={index} />);
 

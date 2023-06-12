@@ -9,7 +9,7 @@ import db from './database/index.js'
 // import typeDefs from './graphql/typeDefs.js'
 import resolvers from './graphql/resolvers.js'
 
-const port = 5001
+const port = 3000
 
 app.use(express.json())
 
