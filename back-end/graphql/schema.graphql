@@ -2,7 +2,6 @@ scalar DateHandler
 
 type Employee {
   # _id: ID!
-  # createdAt: String!
   FirstName: String
   LastName: String
   DateOfJoining: DateHandler
