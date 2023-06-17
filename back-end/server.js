@@ -1,3 +1,12 @@
+/**
+ * Group members as below: 
+ * Chelsa, Patel
+ * Fu-Ting, Li
+ * Jijo, Raju
+ * Stuti Dilipbhai, Jayswal
+ */
+
+
 import express from 'express';
 const app = express()
 import { ApolloServer } from '@apollo/server';

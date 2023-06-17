@@ -1,3 +1,12 @@
+/**
+ * Group members as below: 
+ * Chelsa, Patel
+ * Fu-Ting, Li
+ * Jijo, Raju
+ * Stuti Dilipbhai, Jayswal
+ */
+
+
 import './App.css';
 
 import Layout from './components/Layout/Layout';
