@@ -1,0 +1,15 @@
+.list{
+  display: inline-block;
+  margin: 0 0.5rem;
+  padding: 0 0.5rem;
+}
+
+a {
+  color:#000;
+  text-decoration:none;
+}
+
+.active {
+  font-weight:bold;
+  color:red;
+}

@@ -1,4 +1,5 @@
 import mongodb from 'mongodb'
+import { GraphQLError } from 'graphql'
 import { getDb } from '../database/index.js'
 
 const ObjectId = mongodb.ObjectId;
@@ -49,6 +50,76 @@ class Employee {
       })
       .catch(err => console.log(err));
   }
+
+  static findById(id) {
+    const db = getDb();
+    return db
+      .collection('employees')
+      .findOne({ _id: new ObjectId(id) })
+      // .toArray()
+      .then(employee => {
+        if (!employee) {
+          throw new GraphQLError('No Employee found', {
+            extensions: {
+              code: 422,
+            },
+          });
+        }
+
+        return employee;
+      })
+      .catch(err => console.log(err));
+  }
+
+  static findOneAndDelete(id) {
+    const db = getDb();
+    return db
+      .collection('employees')
+      .findOneAndDelete({ _id: new ObjectId(id) })
+      // .toArray()
+      .then(result => {
+        if (!result) {
+          throw new GraphQLError('No Employee found', {
+            extensions: {
+              code: 422,
+            },
+          });
+        }
+
+        return result;
+      })
+      .catch(err => console.log(err));
+  }
+
+  static findOneAndUpdate(e) {
+
+    const { id, Title, Department, employeeType } = e
+    const data = {
+      Title, Department, employeeType
+    }
+    const db = getDb();
+    return db
+      .collection('employees')
+      .findOneAndUpdate(
+        { _id: new ObjectId(id) },
+        { $set: { ...data } },
+      )
+      // .toArray()
+      .then(result => {
+        if (!result) {
+          throw new GraphQLError('No Employee found', {
+            extensions: {
+              code: 422,
+            },
+          });
+        }
+
+        return result;
+      })
+      .catch(err => console.log(err));
+  }
+
+
 }
 
 export default Employee

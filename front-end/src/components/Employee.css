@@ -41,8 +41,20 @@ button {
   border-radius: 0.25rem;
 }
 
+form {
+  width: 50%;
+  margin: 0 auto;
+}
+
 .from-group {
   display: grid;
-  grid-template-columns: 25% 1fr;
+  grid-template-columns: 35% 1fr;
   margin: 0.5rem auto;
+  justify-content: center;
+  align-items: center;
 }
+
+span{
+  color:blue
+}
+

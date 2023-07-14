@@ -1,29 +1,29 @@
 import React from 'react'
+import { useParams } from "react-router-dom";
+
 import EmployeeRow from './EmployeeRow'
+import Table from './UI/Table'
+
 
 function EmployeeTable(props) {
   const { employeeData } = props
+  const params = useParams()
+  let filterList = []
 
   if (!Array.isArray(employeeData) || !employeeData.length) return <p className="noFound">No employees found</p>
 
-  const renderEmployee = employeeData.map((employee, index) => <EmployeeRow employee={employee} key={index} />);
+  if (params.filterType) {
+    filterList = employeeData.filter(i => i.employeeType === params.filterType)
+  } else {
+    filterList = employeeData
+  }
+
+  const renderEmployee = filterList.map((employee, index) => <EmployeeRow employee={employee} key={index} />);
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>FirstName</th>
-          <th>LastName</th>
-          <th>Age</th>
-          <th>DateOfJoining</th>
-          <th>Title</th>
-          <th>Department</th>
-          <th>employeeType</th>
-          <th>CurrentStatus</th>
-        </tr>
-      </thead>
+    <Table>
       <tbody>{renderEmployee}</tbody>
-    </table>
+    </Table>
   )
 }
 

@@ -1,7 +1,7 @@
 scalar DateHandler
 
 type Employee {
-  # _id: ID!
+  _id: String
   FirstName: String
   LastName: String
   DateOfJoining: DateHandler
@@ -13,6 +13,7 @@ type Employee {
 }
 
 input EmployeeInput {
+  _id: String
   FirstName: String
   LastName: String
   DateOfJoining: DateHandler
@@ -22,10 +23,20 @@ input EmployeeInput {
   employeeType: String
 }
 
+input UpdateInput {
+  id: String
+  Title: String
+  Department: String
+  employeeType: String
+}
+
 type Query {
   employeeList: [Employee]
+  findEmployee(id: String): Employee!
 }
 
 type Mutation {
   employeeCreate(employee: EmployeeInput): Employee
+  updateEmployee(employee: UpdateInput): Employee
+  deleteEmployee(id: String): Employee!
 }

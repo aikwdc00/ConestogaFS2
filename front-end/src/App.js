@@ -8,16 +8,33 @@
 
 
 import './App.css';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate
+} from "react-router-dom";
 
-import Layout from './components/Layout/Layout';
-import EmployeeDirectory from './components/EmployeeDirectory'
+import Layout from './components/Layout'
+import Home from './pages/Home'
+import Detail from './pages/Detail'
+import AddEmployee from './pages/Add'
 
 
 function App() {
   return (
-    <Layout >
-      <EmployeeDirectory />
-    </Layout>
+    <BrowserRouter>
+      <Routes >
+        <Route path="/" element={<Layout />} >
+          <Route path="/" element={< Navigate replace to="home" />} />
+          <Route path="home" element={<Home />} >
+            <Route path=":filterType" element={<Home />} />
+          </Route>
+          <Route path="create" element={<AddEmployee />} />
+          <Route path=":employeeId" element={<Detail />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

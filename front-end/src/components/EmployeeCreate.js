@@ -1,6 +1,10 @@
 import React, { Component, } from 'react'
+import { Navigate } from "react-router-dom";
+
 import Input from './UI/Input';
 import Select from './UI/Select';
+
+import { addEmployeeHandler } from '../util/DataHandler'
 
 const inputType = [
   {
@@ -51,17 +55,17 @@ export default class EmployeeCreate extends Component {
   constructor() {
     super()
     this.state = {
-      errors: []
+      errors: [],
+      redirect: false,
     }
   }
 
-  submitHandler = (e) => {
+  submitHandler = async (e) => {
     e.preventDefault()
 
     const errors = []
     const form = document.forms.addEmployeeFrom
     const { FirstName, LastName, Age, DateOfJoining, Title, Department, employeeType } = form
-
 
     const fnTest = /[a-zA-z]{3,20}/
     const fnErr = !fnTest.test(FirstName.value) ? 'First Name formatting is wrong.' : ''
@@ -92,7 +96,7 @@ export default class EmployeeCreate extends Component {
     })
 
     if (!errors.length) {
-      this.props.addEmployeeHandler({
+      const result = await addEmployeeHandler({
         FirstName: FirstName.value,
         LastName: LastName.value,
         Age: Age.value,
@@ -109,11 +113,22 @@ export default class EmployeeCreate extends Component {
       form.Title.value = 'Please choose a title'
       form.Department.value = 'Please choose Department'
       form.employeeType.value = 'Please choose employee Type'
+
+      if (result) {
+        this.setState({ redirect: true });
+      }
     }
   }
 
   render() {
-    const { errors } = this.state
+    const { errors, redirect } = this.state
+
+    if (redirect) {
+      /* class 無法像hook 一樣直接調用 redirect or useNavigate
+       故在 render 方法中使用 Navigate 組件進行跳轉 */
+      return <Navigate to="/home" />;
+    }
+
     return (
       <>
         <ul>
