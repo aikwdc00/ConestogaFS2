@@ -81,8 +81,8 @@ const Detail = () => {
     const { Title, Department, employeeType } = form
 
     const result = await updateEmployeeHandler(
-      employeeId,
       {
+        id: employeeId,
         Title: Title.value,
         Department: Department.value,
         employeeType: employeeType.value,

@@ -11,6 +11,7 @@ export default class EmployeeDirectory extends Component {
     super()
     this.state = {
       employeeData: null,
+      filterData: null,
     }
   }
 
@@ -21,17 +22,33 @@ export default class EmployeeDirectory extends Component {
   getEmployeeData = async () => {
     const employeeData = await getEmployeeData()
     if (employeeData?.data?.employeeList) {
-      this.setState({ employeeData: employeeData.data.employeeList })
+      this.setState({
+        employeeData: employeeData.data.employeeList,
+        filterData: employeeData.data.employeeList
+      })
+    }
+  }
+
+  getFilter = (item) => {
+    const { employeeData } = this.state
+
+    const filterList = employeeData.filter((emp) => emp.employeeType === item)
+    if (item === 'All') {
+      this.getEmployeeData()
+    } else {
+      this.setState({
+        filterData: filterList
+      })
     }
   }
 
   render() {
-    const { employeeData, } = this.state
+    const { employeeData, filterData } = this.state
 
     return (
       <>
-        <EmployeeSearch />
-        <EmployeeTable employeeData={employeeData} />
+        <EmployeeSearch onFilter={this.getFilter} />
+        <EmployeeTable employeeData={filterData} />
       </>
     )
   }

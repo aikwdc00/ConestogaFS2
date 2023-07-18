@@ -103,7 +103,7 @@ export const addEmployeeHandler = async (e) => {
 }
 
 // update employee
-export const updateEmployeeHandler = async (id, e) => {
+export const updateEmployeeHandler = async (e) => {
 
   const graphqlQuery = {
     query: `mutation EmployeeUpdate($employee: UpdateInput) {
@@ -122,7 +122,6 @@ export const updateEmployeeHandler = async (id, e) => {
     variables: {
       employee: {
         ...e,
-        id
       }
     }
   };
